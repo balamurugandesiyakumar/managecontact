@@ -17,7 +17,12 @@ body {
     transition: all 0.5s ease;
     position: relative;
   }
-  
+  .fa-times{
+    display: none;
+  }
+  .sidebar-mobile{
+    display: none;
+  }
   #sidebar-wrapper {
     z-index: 1000;
     position: fixed;
@@ -266,7 +271,8 @@ body {
     }
   
     #wrapper.toggled {
-      padding-left: 250px;
+      // padding-left: 250px;
+      padding-left: 0px;
     }
   
     #content-wrapper {
@@ -399,7 +405,7 @@ body {
           cursor: pointer;
         }
         td{
-          padding:20px 15px;
+          padding:20px 5px;
         }
         td:nth-child(2){
           font-weight: bold;
@@ -484,4 +490,88 @@ body {
         font-weight: 500;
       }
     }
+  }
+
+  @media(max-width:991px){
+    .contact-rghttable{
+      width: 100%;
+      padding: 0px 30px;
+      position: absolute;
+      top: 0;
+      background: #fff;
+      left: 0;
+      right: 0;
+      bottom: 33px;
+      margin-top: 10px;
+      z-index: 9;
+    }
+    .contact-table .contact-lfttable{
+      width: 100%;
+    }
+  }
+
+  @media(max-width:767px){
+    .contact-rghttable{
+      position: fixed;
+      padding: 0px;
+      top: 40px;
+    }
+    .contact-rghttable .contact-table-card{
+      overflow: scroll;
+    }
+    .sidebar-brand .fa-bars,.contact-sort{
+      display: none;
+    }
+    .contact-search .search-col {
+      display: inherit;
+    }
+    .contact-search .form-control{
+      width: 100%;
+    }
+    .contact-search .form-control-feedback{
+      left: inherit;
+      right: 25px;
+    }
+    .contact-table table tbody td{
+      padding: 15px 5px;
+    }
+    .contact-table table tbody td:last-child{
+      text-align: center;
+    }
+    .contact-table table tbody td:last-child i:first-child{
+      margin-right: 5px;
+    }
+    .ad-contact{
+      float: right;
+    }
+    .fa-times{
+      display: block;
+      line-height: 40px;
+    }
+    .navbar {
+      .navbar-brand,.navbar-right{
+        display: none;
+      }
+      .sidebar-mobile{
+        display: block;
+        cursor: pointer;
+      }
+      .fa-bars{
+        font-size: 20px;
+      }
+    }
+    #content-wrapper,.contact-search .search-col{
+      padding-left: 15px;
+    }
+    .contact-table .contact-lfttable{
+      padding-left: 0px;
+      width: 100%;
+    }
+    #wrapper #sidebar-wrapper{
+      width:250px;
+    }
+    #wrapper.toggled #sidebar-wrapper{
+      width:0px;
+    }
+
   }

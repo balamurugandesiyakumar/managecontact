@@ -64,7 +64,7 @@ class ManageContact extends Component {
             type: 'ADD_POST',
             data
         });
-
+        this.setState({ toggleAdd: false })
         this.getName.value = '';
         this.getEmail.value = '';
         this.getPhone.value = '';
@@ -106,6 +106,7 @@ class ManageContact extends Component {
                     <aside id="sidebar-wrapper">
                         <div class="sidebar-brand">
                             <i class="fa fa-bars" onClick={this.toggleMenu}></i>
+                            <i class="fa fa-times" onClick={this.toggleMenu}></i>
                         </div>
                         <ul class="sidebar-nav">
                             <li class="active">
@@ -125,6 +126,10 @@ class ManageContact extends Component {
                             <div class="container-fluid">
                                 <div class="navbar-header">
                                     <a href="#" class="navbar-brand" id="sidebar-toggle"><i class="fa fa-search"></i></a>
+
+                                </div>
+                                <div class="sidebar-mobile">
+                                    <i class="fa fa-bars" onClick={this.toggleMenu}></i>
                                 </div>
                                 <div class="navbar-right">
                                     <ul>
