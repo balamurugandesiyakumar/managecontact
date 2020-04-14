@@ -1,32 +1,104 @@
 import React, { Component } from 'react'
 import './managecontact.scss';
 import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
 
-export default class ManageContact extends Component {
+
+
+const mapStateToProps = (state) => {
+    return {
+        posts: state
+    }
+}
+
+
+class ManageContact extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            users: [],
+            userDetail: {},
             toggle: true,
             toggleNew: false,
-            toggleEdit: false
+            toggleEdit: false,
+            toggleAdd: false
         }
     }
 
-    toggleNewCard = () => {
-        this.setState({ toggleNew: true, toggleEdit: false })
+
+
+    toggleViewCard(user) {
+        this.setState({ toggleNew: true, toggleEdit: false, userDetail: user })
     }
 
-    toggleEditCard = () => {
-        this.setState({ toggleEdit: true, toggleNew: false })
+    toggleEditCard = (user) => {
+        this.setState({ toggleEdit: true, toggleAdd: false, toggleNew: false, userDetail: user });
     }
     toggleMenu = () => {
         this.setState({ toggle: !this.state.toggle })
     }
 
+    toggleAddCard = () => {
+        this.setState({ toggleEdit: false, toggleNew: false, toggleAdd: true })
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        const name = this.getName.value;
+        const email = this.getEmail.value;
+        const phone = this.getPhone.value;
+        const company = this.getCompany.value;
+        const address = this.getAddress.value;
+
+        const data = {
+            id: this.state.users.length + 1,
+            real_name: name,
+            mailid: email,
+            phone: phone,
+            company: company,
+            address: address
+        }
+
+        this.props.dispatch({
+            type: 'ADD_POST',
+            data
+        });
+
+        this.getName.value = '';
+        this.getEmail.value = '';
+        this.getPhone.value = '';
+        this.getCompany.value = '';
+        this.getAddress.value = '';
+
+    }
+
+
+    handleEditSubmit = (e) => {
+        e.preventDefault();
+        const name = this.getName.value;
+        const email = this.getEmail.value;
+        const phone = this.getPhone.value;
+        const company = this.getCompany.value;
+        const address = this.getAddress.value;
+
+        const data = {
+            real_name: name,
+            mailid: email,
+            phone: phone,
+            company: company,
+            address: address
+        }
+
+        // this.props.dispatch({ type: 'EDIT_POST', id: this.props.posts.id });
+        this.props.dispatch({ type: 'UPDATE', id: this.state.userDetail.id, data: data })
+        this.setState({ toggleEdit: false })
+
+    }
 
 
     render() {
+
         return (
             <div>
                 <div id="wrapper" className={this.state.toggle ? "toggled" : ""}>
@@ -107,7 +179,7 @@ export default class ManageContact extends Component {
                                     <input type="text" class="form-control" id="inputSuccess2" placeholder="Search contacts" />
                                     <span class="fa fa-search form-control-feedback"></span>
                                 </div>
-                                <button className="ad-contact">
+                                <button className="ad-contact" onClick={this.toggleAddCard}>
                                     <i class="fa fa-plus"></i> Add Contact
                                 </button>
                             </div>
@@ -125,99 +197,28 @@ export default class ManageContact extends Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                <div className="ctable-name" onClick={this.toggleNewCard}>
-                                                    <i className="ctable-icn">MK</i>
-                                                    <div className="ctable-namerght">
-                                                        <h4>Mike Huston</h4>
-                                                        <span>mikehuston@gmail.com</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                Amazon Traders
-                                        </td>
-                                            <td>
-                                                <i class="fa fa-pencil" aria-hidden="true" onClick={this.toggleEditCard}></i>
-                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div className="ctable-name">
-                                                    <i className="ctable-icn">MK</i>
-                                                    <div className="ctable-namerght">
-                                                        <h4>Mike Huston</h4>
-                                                        <span>mikehuston@gmail.com</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                Amazon Traders
-                                        </td>
-                                            <td>
-                                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <div className="ctable-name">
-                                                    <i className="ctable-icn">MK</i>
-                                                    <div className="ctable-namerght">
-                                                        <h4>Mike Huston</h4>
-                                                        <span>mikehuston@gmail.com</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                Amazon Traders
-                                        </td>
-                                            <td>
-                                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <div className="ctable-name" >
-                                                    <i className="ctable-icn">MK</i>
-                                                    <div className="ctable-namerght">
-                                                        <h4>Mike Huston</h4>
-                                                        <span>mikehuston@gmail.com</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                Amazon Traders
-                                        </td>
-                                            <td>
-                                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <div className="ctable-name">
-                                                    <i className="ctable-icn">MK</i>
-                                                    <div className="ctable-namerght">
-                                                        <h4>Mike Huston</h4>
-                                                        <span>mikehuston@gmail.com</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                Amazon Traders
-                                        </td>
-                                            <td>
-                                                <i class="fa fa-pencil" aria-hidden="true" onClick={this.toggleEditcard}></i>
-                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                            </td>
-                                        </tr>
+                                        {
+                                            this.props.posts.map((user, i) =>
+                                                <tr key={user.id}>
+                                                    <td>
+                                                        <div className="ctable-name" onClick={() => this.toggleViewCard(user)}>
+                                                            <i className="ctable-icn">MK</i>
+                                                            <div className="ctable-namerght">
+                                                                <h4>{user.real_name}</h4>
+                                                                <span>{user.mailid}</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        {user.company}
+                                                    </td>
+                                                    <td>
+                                                        <i class="fa fa-pencil" aria-hidden="true" onClick={() => this.toggleEditCard(user)}></i>
+                                                        <i class="fa fa-trash-o" aria-hidden="true" onClick={() => this.props.dispatch({ type: 'DELETE_POST', id: user.id })}></i>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        }
 
 
                                     </tbody>
@@ -230,7 +231,7 @@ export default class ManageContact extends Component {
                                             <div className="ctable-name">
                                                 <i className="ctable-icn">NC</i>
                                                 <div className="ctable-namerght">
-                                                    <h4>Create New Contact</h4>
+                                                    <h4>{this.state.userDetail.real_name}</h4>
                                                     <span>Product Manager CRM Management</span>
                                                 </div>
                                             </div>
@@ -238,30 +239,69 @@ export default class ManageContact extends Component {
 
                                             <div className="form-group">
                                                 <label>Full name : </label>
-                                                <span>Mike Huston</span>
+                                                <span>{this.state.userDetail.real_name}</span>
                                             </div>
                                             <div className="form-group">
                                                 <label>Email : </label>
-                                                <span>Mike Huston</span>
+                                                <span>{this.state.userDetail.mailid}</span>
                                             </div>
                                             <div className="form-group">
                                                 <label>Phone : </label>
-                                                <span>Mike Huston</span>
+                                                <span>{this.state.userDetail.phone}</span>
                                             </div>
                                             <div className="form-group">
                                                 <label>Company : </label>
-                                                <span>Mike Huston</span>
+                                                <span>{this.state.userDetail.company}</span>
                                             </div>
                                             <div className="form-group">
                                                 <label>Address : </label>
-                                                <span>Mike Huston</span>
+                                                <span>{this.state.userDetail.address}</span>
                                             </div>
-                                            <button className="ad-contact">
-                                                Save
-                             </button>
 
                                         </div>
                                     </div> : ""
+                            }
+                            {
+
+                                (this.state.toggleAdd) ?
+                                    <div className="contact-rghttable">
+                                        <div className="contact-table-card">
+                                            <div className="ctable-name">
+                                                <i className="ctable-icn">NC</i>
+                                                <div className="ctable-namerght">
+                                                    <h4>Create Add Contact</h4>
+                                                    <span>Product Manager CRM Management</span>
+                                                </div>
+                                            </div>
+
+                                            <form onSubmit={this.handleSubmit}>
+                                                <div className="form-group">
+                                                    <label>Full name : </label>
+                                                    <input type="text" className="form-control" ref={(input) => this.getName = input} required />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Email : </label>
+                                                    <input type="text" className="form-control" ref={(input) => this.getEmail = input} required />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Phone : </label>
+                                                    <input type="text" className="form-control" ref={(input) => this.getPhone = input} required />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Company : </label>
+                                                    <input type="text" className="form-control" ref={(input) => this.getCompany = input} required />
+                                                </div>
+                                                <div className="form-group">
+                                                    <label>Address : </label>
+                                                    <textarea className="form-control" ref={(input) => this.getAddress = input} required></textarea>
+                                                </div>
+                                                <button className="ad-contact">
+                                                    Save
+                             </button>
+                                            </form>
+                                        </div>
+                                    </div> : ""
+
                             }
                             {
 
@@ -276,30 +316,30 @@ export default class ManageContact extends Component {
                                                 </div>
                                             </div>
 
-                                            <form>
+                                            <form onSubmit={this.handleEditSubmit}>
                                                 <div className="form-group">
                                                     <label>Full name : </label>
-                                                    <input type="text" className="form-control" />
+                                                    <input type="text" className="form-control" ref={(input) => this.getName = input} defaultValue={this.state.userDetail.real_name} required />
                                                 </div>
                                                 <div className="form-group">
                                                     <label>Email : </label>
-                                                    <input type="text" className="form-control" />
+                                                    <input type="text" className="form-control" ref={(input) => this.getEmail = input} defaultValue={this.state.userDetail.mailid} required />
                                                 </div>
                                                 <div className="form-group">
                                                     <label>Phone : </label>
-                                                    <input type="text" className="form-control" />
+                                                    <input type="text" className="form-control" ref={(input) => this.getPhone = input} defaultValue={this.state.userDetail.phone} required />
                                                 </div>
                                                 <div className="form-group">
                                                     <label>Company : </label>
-                                                    <input type="text" className="form-control" />
+                                                    <input type="text" className="form-control" ref={(input) => this.getCompany = input} defaultValue={this.state.userDetail.company} required />
                                                 </div>
                                                 <div className="form-group">
                                                     <label>Address : </label>
-                                                    <textarea className="form-control"></textarea>
+                                                    <textarea className="form-control" ref={(input) => this.getAddress = input} defaultValue={this.state.userDetail.address} required></textarea>
                                                 </div>
                                                 <button className="ad-contact">
                                                     Save
-                             </button>
+</button>
                                             </form>
                                         </div>
                                     </div> : ""
@@ -315,5 +355,7 @@ export default class ManageContact extends Component {
         )
     }
 }
+
+export default connect(mapStateToProps)(ManageContact)
 
 
