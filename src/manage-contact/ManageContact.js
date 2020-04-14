@@ -110,13 +110,13 @@ class ManageContact extends Component {
                         </div>
                         <ul class="sidebar-nav">
                             <li class="active">
-                                <Link to="/user-list"><i class="fa fa-home"></i>Home</Link>
+                                <Link to="/"><i class="fa fa-home"></i>Home</Link>
                             </li>
                             <li>
-                                <Link to="/user-list"><i class="fa fa-plug"></i>Plugins</Link>
+                                <Link to="/"><i class="fa fa-plug"></i>Plugins</Link>
                             </li>
                             <li>
-                                <Link to="/user-list"><i class="fa fa-user"></i>Users</Link>
+                                <Link to="/"><i class="fa fa-user"></i>Users</Link>
                             </li>
                         </ul>
                     </aside>
