@@ -514,10 +514,16 @@ body {
     .contact-rghttable{
       position: fixed;
       padding: 0px;
-      top: 40px;
+      top: 0px;
+      margin-top:0px;
+      min-height: 100vh;
+      height: auto;
+      overflow-y: scroll;
+
     }
+    
     .contact-rghttable .contact-table-card{
-      overflow: scroll;
+      padding-bottom: 100px;
     }
     .sidebar-brand .fa-bars,.contact-sort{
       display: none;
@@ -547,6 +553,13 @@ body {
     .fa-times{
       display: block;
       line-height: 40px;
+    }
+    .contact-table-card{
+      .fa-times{
+        float: right;
+        padding: 0px 10px;
+        cursor: pointer;
+      }
     }
     .navbar {
       .navbar-brand,.navbar-right{

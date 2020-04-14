@@ -26,7 +26,13 @@ class ManageContact extends Component {
         }
     }
 
-
+    closeModal = () => {
+        this.setState({
+            toggleNew: false,
+            toggleEdit: false,
+            toggleAdd: false
+        })
+    }
 
     toggleViewCard(user) {
         this.setState({ toggleNew: true, toggleEdit: false, userDetail: user })
@@ -233,6 +239,7 @@ class ManageContact extends Component {
                                 (this.state.toggleNew) ?
                                     <div className="contact-rghttable contact-view">
                                         <div className="contact-table-card">
+                                            <i class="fa fa-times" onClick={this.closeModal}></i>
                                             <div className="ctable-name">
                                                 <i className="ctable-icn">NC</i>
                                                 <div className="ctable-namerght">
@@ -271,6 +278,7 @@ class ManageContact extends Component {
                                 (this.state.toggleAdd) ?
                                     <div className="contact-rghttable">
                                         <div className="contact-table-card">
+                                            <i class="fa fa-times" onClick={this.closeModal}></i>
                                             <div className="ctable-name">
                                                 <i className="ctable-icn">NC</i>
                                                 <div className="ctable-namerght">
@@ -313,6 +321,7 @@ class ManageContact extends Component {
                                 (this.state.toggleEdit) ?
                                     <div className="contact-rghttable">
                                         <div className="contact-table-card">
+                                            <i class="fa fa-times" onClick={this.closeModal}></i>
                                             <div className="ctable-name">
                                                 <i className="ctable-icn">NC</i>
                                                 <div className="ctable-namerght">
